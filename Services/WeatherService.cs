@@ -5,7 +5,7 @@ namespace site1.Services;
 
 public class WeatherService 
 {
-    public async static Task<site1.Models.WeatherData?> GetWeatherDataAsync(string cityInput)
+    public async Task<site1.Models.WeatherData?> GetWeatherDataAsync(string cityInput)
     {
         string apiKey = "b206890eff5832f08b514e4e1821af44";
         string apiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={cityInput}&units=imperial&appid={apiKey}";

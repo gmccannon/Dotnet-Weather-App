@@ -3,6 +3,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Register WeatherService
+builder.Services.AddScoped<site1.Services.WeatherService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

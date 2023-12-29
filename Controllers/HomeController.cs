@@ -6,10 +6,12 @@ namespace site1.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly site1.Services.WeatherService _weatherService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, site1.Services.WeatherService weatherService)
     {
         _logger = logger;
+        _weatherService = weatherService;
     }
 
     public IActionResult Index()
@@ -23,21 +25,24 @@ public class HomeController : Controller
     }
 
     public async Task<IActionResult> Weather(string cityInput)
-    {
-        // Await the task to get the actual result
-        site1.Models.WeatherData? weatherData = await site1.Services.WeatherService.GetWeatherDataAsync(cityInput);
+    {   
+        try
+        {
+            // Await the task to get the actual result
+            site1.Models.WeatherData? weatherData = await _weatherService.GetWeatherDataAsync(cityInput);
 
-        // Check if weatherData is not null before accessing properties
-        if (weatherData != null)
-        {
-            ViewData["city"] = weatherData.name;
-            ViewData["weatherTemp"] = weatherData.main?.temp;
-            ViewData["mainWeather"] = weatherData.weather?[0].description;
-            ViewData["country"] = weatherData.sys?.country;
+            // Check if weatherData is not null before accessing properties
+            if (weatherData != null)
+            {
+                ViewData["city"] = weatherData.name;
+                ViewData["weatherTemp"] = weatherData.main?.temp;
+                ViewData["mainWeather"] = weatherData.weather?[0].description;
+                ViewData["country"] = weatherData.sys?.country;
+            }
         }
-        else
+        catch (Exception e)
         {
-            ViewData["Error"] = "Weather data not available.";
+                ViewData["Error"] = $"{cityInput} was not in the database";
         }
 
         return View();
