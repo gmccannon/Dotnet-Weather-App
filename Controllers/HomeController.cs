@@ -23,8 +23,31 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Weather()
+    public async Task<IActionResult> Weather(string cityInput)
     {
+        ViewData["cityInput"] = cityInput;
+
+        string apiKey = "b206890eff5832f08b514e4e1821af44";
+        string apiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={cityInput}&units=imperial&appid={apiKey}";
+
+        using (var httpClient = new HttpClient())
+        {
+            try
+            {
+                string response = await httpClient.GetStringAsync(apiUrl);
+
+                site1.Models.WeatherData? weatherData = System.Text.Json.JsonSerializer.Deserialize<site1.Models.WeatherData>(response);
+
+                ViewData["weatherTemp"] = weatherData?.main.temp;
+                ViewData["mainWeather"] = weatherData?.weather[0].description;
+                ViewData["country"] = weatherData?.sys.country;
+            }
+            catch (Exception ex)
+            {
+                ViewData["Error"] = $"Error fetching weather data: {ex.Message}";
+            }
+        }
+
         return View();
     }
 

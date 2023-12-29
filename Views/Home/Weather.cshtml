@@ -1,11 +1,11 @@
 @{
-    ViewData["Title"] = "Weather";
+
 }
 
-<div class="text-center">
+<div>
+    <h1>Weather for @ViewData["cityInput"], @ViewData["country"]</h1>
+    <p>Temp: @ViewData["weatherTemp"] </p>
+    <p>Weather: @ViewData["mainWeather"] </p>
 
-    <h1 class="display-4">@ViewData["Title"]</h1>
-
-    <p>This is some info about the weather.</p>
-
+    
 </div>
