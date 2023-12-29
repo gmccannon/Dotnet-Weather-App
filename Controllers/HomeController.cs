@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using site1.Models;
 
 namespace site1.Controllers;
 
@@ -25,27 +24,20 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Weather(string cityInput)
     {
-        ViewData["cityInput"] = cityInput;
+        // Await the task to get the actual result
+        site1.Models.WeatherData? weatherData = await site1.Services.WeatherService.GetWeatherDataAsync(cityInput);
 
-        string apiKey = "b206890eff5832f08b514e4e1821af44";
-        string apiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={cityInput}&units=imperial&appid={apiKey}";
-
-        using (var httpClient = new HttpClient())
+        // Check if weatherData is not null before accessing properties
+        if (weatherData != null)
         {
-            try
-            {
-                string response = await httpClient.GetStringAsync(apiUrl);
-
-                site1.Models.WeatherData? weatherData = System.Text.Json.JsonSerializer.Deserialize<site1.Models.WeatherData>(response);
-
-                ViewData["weatherTemp"] = weatherData?.main.temp;
-                ViewData["mainWeather"] = weatherData?.weather[0].description;
-                ViewData["country"] = weatherData?.sys.country;
-            }
-            catch (Exception ex)
-            {
-                ViewData["Error"] = $"Error fetching weather data: {ex.Message}";
-            }
+            ViewData["city"] = weatherData.name;
+            ViewData["weatherTemp"] = weatherData.main?.temp;
+            ViewData["mainWeather"] = weatherData.weather?[0].description;
+            ViewData["country"] = weatherData.sys?.country;
+        }
+        else
+        {
+            ViewData["Error"] = "Weather data not available.";
         }
 
         return View();
@@ -54,6 +46,6 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View(new site1.Models.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
