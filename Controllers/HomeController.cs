@@ -21,11 +21,19 @@ public class HomeController : Controller
 
     public IActionResult Privacy()
     {
+        
         return View();
     }
 
-    public IActionResult About()
-    {
+    public IActionResult Settings(string units, string color)
+    {      
+        /*This controller handles both going to the setting page as well as changing the settings, if there is no input,
+        handle this as if the request was to go to the setting tab. */
+        if (units != "imperial" && units != "metric") return View();
+
+        /*If there is an input*/
+        site1.GlobalSettings.Values.units = units;
+        site1.GlobalSettings.Values.colorMode = color;
         return View();
     }
 

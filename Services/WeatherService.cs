@@ -8,7 +8,9 @@ public class WeatherService
     public async Task<site1.Models.WeatherData?> GetWeatherDataAsync(string cityInput)
     {
         string apiKey = "b206890eff5832f08b514e4e1821af44";
-        string apiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={cityInput}&units=imperial&appid={apiKey}";
+        string unit = site1.GlobalSettings.Values.units;
+
+        string apiUrl = $"https://api.openweathermap.org/data/2.5/weather?q={cityInput}&units={unit}&appid={apiKey}";
 
         // parse the data from the openweather api
         using (var httpClient = new HttpClient())
