@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Settings Page";
+    var unit = site1.GlobalSettings.Values.units;
+    var color = site1.GlobalSettings.Values.colorMode;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-controller="Home" asp-action="Settings" method="POST">
+    <div>
+        <legend>Units:</legend>
+        <input type="radio" id="metricRadio" name="units" value="metric" @(unit == "metric" ? "checked" : "") />
+        <label for="metricRadio">Metric</label>
+        <br>
+        <input type="radio" id="imperialRadio" name="units" value="imperial" @(unit == "imperial" ? "checked" : "") />
+        <label for="imperialRadio">Imperial</label>
+    </div>
+        
+    <div>
+    <legend>Color Mode:</legend>
+        <input type="radio" id="lightRadio" name="color" value="light" @(color == "light" ? "checked" : "")/>
+        <label for="lightRadio">Light</label>
+        <br>
+        <input type="radio" id="darkRadio" name="color" value="dark" @(color == "dark" ? "checked" : "")/>
+        <label for="darkRadio">Also Light Mode</label>
+    </div>
+
+    <div>
+        <input type="submit" value="submit" /> 
+    </div>
+</form>
