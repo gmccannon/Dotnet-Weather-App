@@ -25,7 +25,23 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Settings(string units, string color)
+    public IActionResult Settings()
+    {      
+        return View();
+    }
+
+    public IActionResult About()
+    {
+        
+        return View();
+    }
+
+    public IActionResult API()
+    {      
+        return View();
+    }
+
+        public IActionResult UpdateSettings(string units, string color)
     {      
         /*This controller handles both going to the setting page as well as changing the settings, if there is no input,
         handle this as if the request was to go to the setting tab. */

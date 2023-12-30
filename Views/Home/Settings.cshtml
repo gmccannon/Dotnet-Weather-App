@@ -6,7 +6,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-controller="Home" asp-action="Settings" method="POST">
+<form asp-controller="Home" asp-action="UpdateSettings" method="POST">
     <div>
         <legend>Units:</legend>
         <input type="radio" id="metricRadio" name="units" value="metric" @(unit == "metric" ? "checked" : "") />
