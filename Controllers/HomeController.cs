@@ -35,17 +35,17 @@ public class HomeController : Controller
             if (weatherData != null)
             {
                 ViewData["city"] = weatherData.name;
-                ViewData["weatherTemp"] = weatherData.main?.temp;
-                ViewData["mainWeather"] = weatherData.weather?[0].description;
-                ViewData["country"] = weatherData.sys?.country;
+                ViewData["weatherTemp"] = weatherData.main.temp;
+                ViewData["mainWeather"] = weatherData.weather[0].description;
+                ViewData["country"] = weatherData.sys.country;
             }
-        }
-        catch (Exception e)
-        {
-                ViewData["Error"] = $"{cityInput} was not in the database";
-        }
 
-        return View();
+            return View();
+        }
+        catch (Exception)
+        {
+            return RedirectToAction("Error");
+        }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

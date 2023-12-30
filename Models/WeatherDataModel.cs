@@ -9,14 +9,14 @@ public class Coordinates
 public class Weather
 {
     public int id { get; set; }
-    public string main { get; set; }
-    public string description { get; set; }
-    public string icon { get; set; }
+    public string? main { get; set; }
+    public string? description { get; set; }
+    public string? icon { get; set; }
 }
 
 public class MainWeatherData
 {
-    public double temp { get; set; }
+    public double? temp { get; set; }
     public double feels_Like { get; set; }
     public double temp_min { get; set; }
     public double temp_max { get; set; }
@@ -47,24 +47,24 @@ public class Sys
 {
     public int type { get; set; }
     public int id { get; set; }
-    public string country { get; set; }
+    public string? country { get; set; }
     public long sunrise { get; set; }
     public long sunset { get; set; }
 }
 
 public class WeatherData
 {
-    public Coordinates coord { get; set; }
-    public Weather[] weather { get; set; }
-    public MainWeatherData main { get; set; }
-    public int visibility { get; set; }
-    public Wind wind { get; set; }
-    public Rain rain { get; set; }
-    public Clouds clouds { get; set; }
+    public Coordinates? coord { get; set; }
+    public Weather[]? weather { get; set; }
+    public MainWeatherData? main { get; set; }
+    public int? visibility { get; set; }
+    public Wind? wind { get; set; }
+    public Rain? rain { get; set; }
+    public Clouds? clouds { get; set; }
     public long dt { get; set; }
-    public Sys sys { get; set; }
+    public Sys? sys { get; set; }
     public int timezone { get; set; }
     public int id { get; set; }
-    public string name { get; set; }
-    public int cod { get; set; }
+    public string? name { get; set; }
+    public int? cod { get; set; }
 }
