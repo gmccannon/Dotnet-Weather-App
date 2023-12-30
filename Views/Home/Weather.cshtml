@@ -1,10 +1,18 @@
 @{
-    
+    ViewData["Title"] = "Weather Page";
+    var weatherData = ViewData["WeatherData"] as site1.Models.WeatherData;
 }
 
-<div>
-    <h1>Weather for @ViewData["city"], @ViewData["country"]</h1>
-    <p>Temp: @ViewData["weatherTemp"] </p>
-    <p>Weather: @ViewData["mainWeather"] </p>
-    
+<div id="search-bar">
+        <form asp-controller="Home" asp-action="Weather" method="POST">
+            <input class="" type="text" placeholder="Enter a city..." name="cityInput">
+        </form>
+</div>
+
+<div id="weatehr-data">
+    <h1>Weather for @weatherData.name, @weatherData.sys.country</h1>
+    <p>Temp: @weatherData.main.temp °F</p>
+    <p>Weather: @weatherData.weather[0].description </p>
+    <p>Pressure: @weatherData.main.pressure hPa </p>
+    <p>Humidity: @weatherData.main.humidity% </p>
 </div>

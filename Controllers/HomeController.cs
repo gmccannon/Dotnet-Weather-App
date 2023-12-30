@@ -24,22 +24,18 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult About()
+    {
+        return View();
+    }
+
     public async Task<IActionResult> Weather(string cityInput)
     {   
         try
         {
             // Await the task to get the actual result
-            site1.Models.WeatherData? weatherData = await _weatherService.GetWeatherDataAsync(cityInput);
-
-            // Check if weatherData is not null before accessing properties
-            if (weatherData != null)
-            {
-                ViewData["city"] = weatherData.name;
-                ViewData["weatherTemp"] = weatherData.main.temp;
-                ViewData["mainWeather"] = weatherData.weather[0].description;
-                ViewData["country"] = weatherData.sys.country;
-            }
-
+            ViewData["WeatherData"] = await _weatherService.GetWeatherDataAsync(cityInput);
+            
             return View();
         }
         catch (Exception)
